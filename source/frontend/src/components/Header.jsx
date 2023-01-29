@@ -3,6 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
+const GITHUB_URI = "https://github.com/Skromlee/InferenceEngine";
+
 const Header = () => {
   return (
     <Navbar bg="light" expand="lg">
@@ -20,9 +22,7 @@ const Header = () => {
               <NavDropdown.Item href="team-members">
                 Team Members
               </NavDropdown.Item>
-              <NavDropdown.Item href="http://github.com">
-                GitHub
-              </NavDropdown.Item>
+              <NavDropdown.Item href={GITHUB_URI}>GitHub</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
