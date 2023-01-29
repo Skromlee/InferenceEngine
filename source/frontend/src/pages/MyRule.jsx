@@ -1,6 +1,8 @@
 // import axios to use API
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import CreateRuleModal from "../components/CreateRuleModal";
 import DeleteRuleModal from "../components/DeleteRuleModal";
 import EditRuleModal from "../components/EditRuleModal";
 
@@ -11,11 +13,7 @@ import RuleTable from "../components/RuleTable";
 const URI = "http://localhost:8000/api/rules/";
 
 function MyRule() {
-  const [Rules, setRules] = useState([]);
-  const [EditModalShow, setEditModalShow] = useState(false);
-  const [DeleteModalShow, setDeleteModalShow] = useState(false);
-  const [ModalTitle, setModalTitle] = useState("");
-  const [EditForm, setEditForm] = useState({
+  const initialFormState = {
     id: "",
     fact1: "",
     operator1: "",
@@ -23,7 +21,14 @@ function MyRule() {
     operator2: "",
     fact3: "",
     conclude: "",
-  });
+  };
+
+  const [Rules, setRules] = useState([]);
+  const [EditModalShow, setEditModalShow] = useState(false);
+  const [DeleteModalShow, setDeleteModalShow] = useState(false);
+  const [CreateModalShow, setCreateModalShow] = useState(false);
+  const [ModalTitle, setModalTitle] = useState("");
+  const [EditForm, setEditForm] = useState(initialFormState);
 
   const onChangeHandler = (e) => {
     setEditForm((prevState) => ({
@@ -48,15 +53,60 @@ function MyRule() {
   const onSave = () => {
     axios
       .put(URI + EditForm.id + "/", EditForm)
-      .then((response) => getRules())
+      .then(() => getRules())
       .catch((error) => console.log(error));
     setEditModalShow(false);
   };
 
+  const onCreateHandler = () => {
+    setEditForm(initialFormState);
+    setCreateModalShow(true);
+  };
+
+  const onCreate = () => {
+    const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
+    let validation = false;
+
+    if (fact1 && operator1 && fact2 && operator2 && fact3 && conclude) {
+      // all feild required
+      validation = true;
+    } else if (fact1 && operator1 && fact2 && conclude) {
+      // have fact 1 and fact 2
+      validation = true;
+    } else if (fact1 && conclude) {
+      // only fact1 and conclude
+      validation = true;
+    } else {
+      console.log("Something went wrong!");
+    }
+
+    if (validation) {
+      console.log(EditForm);
+      axios
+        .post(URI, EditForm)
+        .then((response) =>
+          setRules((prevState) => [...prevState, response["data"]])
+        )
+        .catch((error) => console.log(error));
+    }
+    setCreateModalShow(false);
+  };
+
   const deleteHandler = (index) => {
-    setModalTitle("DELETE RULE NO." + index);
+    setEditForm(findTargetRule(index));
+    setModalTitle(index);
     setDeleteModalShow(true);
-    console.log("Delete!!", index);
+  };
+
+  const onConfirmDeleteHandler = () => {
+    console.log("DELETE!");
+    axios
+      .delete(URI + EditForm.id + "/")
+      .then(() =>
+        setRules((prevState) => Rules.filter((rule) => rule.id != EditForm.id))
+      )
+      .catch((error) => console.log(error));
+    setDeleteModalShow(false);
   };
 
   const getRules = () => {
@@ -85,14 +135,30 @@ function MyRule() {
         onchangehandler={onChangeHandler}
         onSave={onSave}
       />
+      <CreateRuleModal
+        show={CreateModalShow}
+        onHide={() => setCreateModalShow(false)}
+        editform={EditForm}
+        onchangehandler={onChangeHandler}
+        onCreate={onCreate}
+      />
       <DeleteRuleModal
         show={DeleteModalShow}
         onHide={() => setDeleteModalShow(false)}
         modaltitle={ModalTitle}
+        editform={EditForm}
+        onconfirm={onConfirmDeleteHandler}
       />
       <div className="container">
-        <div className="d-flex justify-content-center my-4">
-          <h2>All Rules </h2>
+        <div className="d-flex justify-content-between my-4 align-items-center">
+          <div>
+            <h1>All Rules </h1>
+          </div>
+          <div>
+            <Button variant="primary" onClick={() => onCreateHandler()}>
+              Create
+            </Button>
+          </div>
         </div>
         <div className="row">
           {Rules.length > 0 ? (

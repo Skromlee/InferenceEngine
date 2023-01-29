@@ -4,45 +4,60 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const DeleteRuleModal = (props) => {
+  const { id, fact1, operator1, fact2, operator2, fact3, conclude } =
+    props.editform;
+
+  let targetRule = "";
+
+  if (operator1 !== null && operator2 !== null) {
+    targetRule = `IF ${fact1} ${operator1} ${fact2} ${operator2} ${fact3} THEN ${conclude}`;
+  } else if (operator1 !== null) {
+    targetRule = `IF ${fact1} ${operator1} ${fact2} THEN ${conclude}`;
+  } else {
+    targetRule = `IF ${fact1} THEN ${conclude}`;
+  }
+
   const onCancelHandler = () => {
     props.onHide();
   };
   return (
     <Form>
       <Modal
-        {...props}
+        onHide={props.onHide}
+        show={props.show}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {props.modaltitle}
+            Delete Rule
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
+          <div>
+            Are you sure you wnat to delete a <br />
+            <span className="text-danger">
+              Rule {props.modaltitle}: {targetRule}{" "}
+            </span>
+            ?
+            <br />
+            if you delete your Rule, you will permanently lost your rule
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-          <Button variant="secondary" onClick={() => onCancelHandler()}>
+          <Button
+            variant="link text-secondary text-decoration-none"
+            onClick={() => onCancelHandler()}
+          >
             Cancel
+          </Button>
+          <Button
+            variant="danger"
+            type="button"
+            onClick={() => props.onconfirm()}
+          >
+            DELETE
           </Button>
         </Modal.Footer>
       </Modal>
