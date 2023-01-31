@@ -43,7 +43,7 @@ const CreateRuleModal = (props) => {
               onChange={props.onchangehandler}
               defaultValue={String(operator1)}
             >
-              <option>----- none -----</option>
+              <option value="">----- none -----</option>
               <option value="AND">AND</option>
               <option value="OR">OR</option>
             </Form.Select>
@@ -66,7 +66,7 @@ const CreateRuleModal = (props) => {
               onChange={props.onchangehandler}
               defaultValue={String(operator2)}
             >
-              <option>----- none -----</option>
+              <option value="">----- none -----</option>
               <option value="AND">AND</option>
               <option value="OR">OR</option>
             </Form.Select>

@@ -51,8 +51,17 @@ function MyRule() {
   };
 
   const onSave = () => {
+    const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
+    const upperEditForm = {
+      fact1: fact1.toUpperCase(),
+      operator1: operator1.toUpperCase(),
+      fact2: fact2.toUpperCase(),
+      operator2: operator2.toUpperCase(),
+      fact3: fact3.toUpperCase(),
+      conclude: conclude.toUpperCase(),
+    };
     axios
-      .put(URI + EditForm.id + "/", EditForm)
+      .put(URI + EditForm.id + "/", upperEditForm)
       .then(() => getRules())
       .catch((error) => console.log(error));
     setEditModalShow(false);
@@ -82,8 +91,18 @@ function MyRule() {
 
     if (validation) {
       console.log(EditForm);
+      const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
+      const upperEditForm = {
+        fact1: fact1.toUpperCase(),
+        operator1: operator1.toUpperCase(),
+        fact2: fact2.toUpperCase(),
+        operator2: operator2.toUpperCase(),
+        fact3: fact3.toUpperCase(),
+        conclude: conclude.toUpperCase(),
+      };
+      console.log(upperEditForm);
       axios
-        .post(URI, EditForm)
+        .post(URI, upperEditForm)
         .then((response) =>
           setRules((prevState) => [...prevState, response["data"]])
         )

@@ -14,3 +14,7 @@ class RuleSerializer(serializers.ModelSerializer):
         model = Rule
         fields = ("id", "fact1", "operator1", "fact2",
                   "operator2", "fact3", "conclude")
+
+
+class FactSerializer(serializers.Serializer):
+    inputFact = serializers.CharField()
