@@ -41,6 +41,10 @@ const Home = () => {
       <div className="container">
         <Form onSubmit={onInferenceHandler}>
           <h2 className="my-4">Inference by fact</h2>
+          <h6 className="mb-4">
+            To insert a multiple fact use this systex to in put fact a, c, e in
+            working memory insert this: "a, c, e"
+          </h6>
           <Row className="d-flex mb-3 ">
             <Form.Group as={Col} md="11" className="mb-3" controlId="inputFact">
               <Form.Control

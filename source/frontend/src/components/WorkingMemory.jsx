@@ -2,7 +2,7 @@ const WorkingMemory = ({ message }) => {
   console.log(message, "<=-=====");
   return (
     <>
-      <div className="container">
+      <div className="container bg-dark text-white py-5 px-5">
         <div className="row">
           {Object.keys(message["log"]).length > 0
             ? message["log"].map((eachLog) => {
