@@ -22,7 +22,6 @@ const Home = () => {
     if (InputFact["inputFact"] !== "") {
       CheckInputFact["inputFact"] = InputFact["inputFact"];
     }
-    console.log(CheckInputFact);
     axios
       .post("http://localhost:8000/inference/", CheckInputFact)
       .then((response) => {
@@ -34,6 +33,8 @@ const Home = () => {
   const onChangeHandler = (e) => {
     setInputFact((prevState) => (prevState = { inputFact: e.target.value }));
   };
+
+  console.log(Response);
 
   return (
     <>
@@ -57,10 +58,10 @@ const Home = () => {
           </Row>
         </Form>
       </div>
-      {Response["message"].length > 0 ? (
+      {Object.keys(Response["message"]).length > 1 ? (
         <WorkingMemory message={Response["message"]} />
       ) : (
-        ""
+        <div className="container">{Response["message"]}</div>
       )}
     </>
   );

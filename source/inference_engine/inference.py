@@ -41,5 +41,6 @@ def members(request):
         inputFact = serializer.validated_data.get('inputFact')
         createRule()
         matches = inference_engine(factList, inputFact)
+        # print(matches)
         return Response({"message": matches})
     return Response(serializer.errors, status=400)
