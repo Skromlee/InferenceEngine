@@ -2,7 +2,6 @@ def inference_engine(ruleList, inputFact):
     # handle when input with multiple fact!
     inputFactArr = inputFact.split(",")
     workingMemory = list(map(lambda x: x.upper(), inputFactArr))
-    print(ruleList)
 
     log = []
     ruleremain = False
