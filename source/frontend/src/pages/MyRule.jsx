@@ -122,7 +122,7 @@ function MyRule() {
     axios
       .delete(URI + EditForm.id + "/")
       .then(() =>
-        setRules((prevState) => Rules.filter((rule) => rule.id != EditForm.id))
+        setRules((prevState) => Rules.filter((rule) => rule.id !== EditForm.id))
       )
       .catch((error) => console.log(error));
     setDeleteModalShow(false);
@@ -171,7 +171,7 @@ function MyRule() {
       <div className="container">
         <div className="d-flex justify-content-between my-4 align-items-center">
           <div>
-            <h1>All Rules </h1>
+            <h2>All Rules </h2>
           </div>
           <div>
             <Button variant="primary" onClick={() => onCreateHandler()}>

@@ -1,9 +1,10 @@
+import "../css/home.css";
+
 const WorkingMemory = ({ message }) => {
-  console.log(message, "<=-=====");
   return (
     <>
-      <div className="container bg-dark text-white py-5 px-5">
-        <div className="row">
+      <div className="container bg-dark text-white py-5 px-5 rounded outputBox">
+        <div>
           {Object.keys(message["log"]).length > 0
             ? message["log"].map((eachLog) => {
                 return (
@@ -29,6 +30,9 @@ const WorkingMemory = ({ message }) => {
                       )}
                     </div>
                     <h6>----------------------------</h6>
+                    <br />
+                    <br />
+                    <br />
                   </div>
                 );
               })

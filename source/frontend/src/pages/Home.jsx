@@ -62,8 +62,12 @@ const Home = () => {
           </Row>
         </Form>
       </div>
+
       {Object.keys(Response["message"]).length > 1 ? (
-        <WorkingMemory message={Response["message"]} />
+        <div className="container">
+          <h6>Prompt: </h6>
+          <WorkingMemory message={Response["message"]} />
+        </div>
       ) : (
         <div className="container">{Response["message"]}</div>
       )}
