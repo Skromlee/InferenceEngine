@@ -1,47 +1,28 @@
 def inference_engine(ruleList, inputFact):
     # handle when input with multiple fact!
     inputFactArr = inputFact.split(",")
-    # # print("from inference engine ===========>", ruleList)
-    # print(inputFact)
-    # print(inputFactArr)
-    # print(ruleList)
     workingMemory = list(map(lambda x: x.upper(), inputFactArr))
-    # print(workingMemory, "adfadfadfasdfsafsaf<=====")
+    print(ruleList)
 
     log = []
     ruleremain = False
     hasaconclude = False
 
     if len(ruleList) > 0:
-        # print("set  rule remain")
         ruleremain = True
-
-    # print("Beforeloop: ", workingMemory)
-
     log.append({
         "workingMemory": list(workingMemory),
         "prompt": "initialstate"
     })
 
-    # print("log before loop: ", log)
-
     while (ruleremain == True):
         # print("loop")
         hasaconclude = False
         for rule in ruleList:
-            # # print()
-            # # print(rule)
-            # # print(workingMemory)
-            # # print()
-            # # print(type(rule))
-            # # print()
-            # # print()
             if any('NIL' in s for s in workingMemory):
                 return ["Can you provide some fact?"]
 
             elif hasaconclude == True:
-                # must to check first rule
-                # print("There are conclude!")
                 continue
 
             else:
@@ -129,17 +110,9 @@ def inference_engine(ruleList, inputFact):
         else:
             ruleremain = False
 
-    # print(workingMemory, "<======")
-    # print(log)
+    ruleList = []
+    inputFact = []
     return {
         "workingMemory": list(workingMemory),
         "log": log
     }
-# # print(match)
-# matches = {rule: 0 for rule in ruleList}
-
-# for rule, fact_list in ruleList.items():
-# #     print(rule)
-# #     print(fact_list)
-
-# matches = {}
