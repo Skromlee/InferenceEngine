@@ -8,6 +8,7 @@ import Header from './components/Header';
 import MyRule from './pages/MyRule';
 import Home from './pages/Home'
 import Member from './pages/Member';
+import Advisor from './pages/Advisor';
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/rules' element={<MyRule />} />
           <Route path='/team-members' element={<Member />}/>
+          <Route path='/our-adviser' element={<Advisor />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,6 +1,5 @@
-.memberPhoto {
-    width: 12em;
-    height: 16em;
+.AjPhoto {
+    width: 37.5em;
     object-fit: cover;
     object-position: top;
 }

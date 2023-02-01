@@ -65,11 +65,15 @@ const Home = () => {
 
       {Object.keys(Response["message"]).length > 1 ? (
         <div className="container">
-          <h6>Prompt: </h6>
+          {/* <h6>Prompt: </h6> */}
           <WorkingMemory message={Response["message"]} />
         </div>
       ) : (
-        <div className="container">{Response["message"]}</div>
+        <div className="container">
+          <div className="container bg-dark text-white py-5 px-5 rounded outputBox">
+            {"> " + Response["message"]}
+          </div>
+        </div>
       )}
     </>
   );
