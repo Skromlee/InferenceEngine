@@ -2,3 +2,12 @@
     height: 35em;
     overflow: auto;
 }
+
+.queryString {
+    margin: 0;
+}
+
+.inputDialog {
+    max-width: 14em;
+    padding-left: 0 !important;
+}

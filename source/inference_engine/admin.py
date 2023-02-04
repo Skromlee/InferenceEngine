@@ -9,10 +9,7 @@ from .models import Rule
 class RuleAdmin(admin.ModelAdmin):
 
     # add the fields of the model here
-    # list_display = ("fact1", "operator", "fact2", "conclude")
-    list_display = ("fact1", "operator1", "fact2",
-                    "operator2", "fact3", "conclude")
-    # list_display = ("fact1", "conclude")
+    list_display = ("fact1", "operator", "fact2", "conclude1", "conclude2")
 
 
 # we will need to register the

@@ -16,11 +16,10 @@ function MyRule() {
   const initialFormState = {
     id: "",
     fact1: "",
-    operator1: "",
+    operator: "",
     fact2: "",
-    operator2: "",
-    fact3: "",
-    conclude: "",
+    conclude1: "",
+    conclude2: "",
   };
 
   const [Rules, setRules] = useState([]);
@@ -51,20 +50,35 @@ function MyRule() {
   };
 
   const onSave = () => {
-    const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
-    const upperEditForm = {
-      fact1: fact1.toUpperCase(),
-      operator1: operator1.toUpperCase(),
-      fact2: fact2.toUpperCase(),
-      operator2: operator2.toUpperCase(),
-      fact3: fact3.toUpperCase(),
-      conclude: conclude.toUpperCase(),
-    };
-    axios
-      .put(URI + EditForm.id + "/", upperEditForm)
-      .then(() => getRules())
-      .catch((error) => console.log(error));
-    setEditModalShow(false);
+    const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
+
+    let validation = false;
+
+    if (fact1 && operator && fact2 && conclude1) {
+      // all feild required
+      validation = true;
+    } else if (fact1 && conclude1 && !operator) {
+      // only fact1 and conclude
+      validation = true;
+    } else {
+      console.log("Something went wrong!");
+    }
+
+    if (validation) {
+      const upperEditForm = {
+        fact1: fact1.toUpperCase(),
+        operator: operator.toUpperCase(),
+        fact2: fact2.toUpperCase(),
+        conclude1: conclude1.toUpperCase(),
+        conclude2: conclude2.toUpperCase(),
+      };
+
+      axios
+        .put(URI + EditForm.id + "/", upperEditForm)
+        .then(() => getRules())
+        .catch((error) => console.log(error));
+      setEditModalShow(false);
+    }
   };
 
   const onCreateHandler = () => {
@@ -73,16 +87,13 @@ function MyRule() {
   };
 
   const onCreate = () => {
-    const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
+    const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
     let validation = false;
 
-    if (fact1 && operator1 && fact2 && operator2 && fact3 && conclude) {
+    if (fact1 && operator && fact2 && conclude1) {
       // all feild required
       validation = true;
-    } else if (fact1 && operator1 && fact2 && conclude) {
-      // have fact 1 and fact 2
-      validation = true;
-    } else if (fact1 && conclude) {
+    } else if (fact1 && conclude1 && !operator) {
       // only fact1 and conclude
       validation = true;
     } else {
@@ -90,17 +101,14 @@ function MyRule() {
     }
 
     if (validation) {
-      console.log(EditForm);
-      const { fact1, operator1, fact2, operator2, fact3, conclude } = EditForm;
+      const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
       const upperEditForm = {
         fact1: fact1.toUpperCase(),
-        operator1: operator1.toUpperCase(),
+        operator: operator.toUpperCase(),
         fact2: fact2.toUpperCase(),
-        operator2: operator2.toUpperCase(),
-        fact3: fact3.toUpperCase(),
-        conclude: conclude.toUpperCase(),
+        conclude1: conclude1.toUpperCase(),
+        conclude2: conclude2.toUpperCase(),
       };
-      console.log(upperEditForm);
       axios
         .post(URI, upperEditForm)
         .then((response) =>

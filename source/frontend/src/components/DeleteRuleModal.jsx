@@ -4,17 +4,14 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const DeleteRuleModal = (props) => {
-  const { id, fact1, operator1, fact2, operator2, fact3, conclude } =
-    props.editform;
+  const { id, fact1, operator, fact2, conclude1, conclude2 } = props.editform;
 
   let targetRule = "";
 
-  if (operator1 !== null && operator2 !== null) {
-    targetRule = `IF ${fact1} ${operator1} ${fact2} ${operator2} ${fact3} THEN ${conclude}`;
-  } else if (operator1 !== null) {
-    targetRule = `IF ${fact1} ${operator1} ${fact2} THEN ${conclude}`;
+  if (operator !== null) {
+    targetRule = `IF ${fact1} ${operator} ${fact2} THEN ${conclude1} AND ${conclude2}`;
   } else {
-    targetRule = `IF ${fact1} THEN ${conclude}`;
+    targetRule = `IF ${fact1} THEN ${conclude1} AND ${conclude2}`;
   }
 
   const onCancelHandler = () => {

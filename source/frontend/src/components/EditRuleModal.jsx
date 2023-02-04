@@ -4,8 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const EditRuleModal = (props) => {
-  const { id, fact1, operator1, fact2, operator2, fact3, conclude } =
-    props.editform;
+  const { id, fact1, operator, fact2, conclude1, conclude2 } = props.editform;
 
   const onCancelHandler = () => {
     props.onHide();
@@ -15,7 +14,6 @@ const EditRuleModal = (props) => {
       <Modal
         onHide={props.onHide}
         show={props.show}
-        // {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -36,14 +34,14 @@ const EditRuleModal = (props) => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="operator1">
-            <Form.Label>Operator 1</Form.Label>
+          <Form.Group className="mb-3" controlId="operator">
+            <Form.Label>Operator</Form.Label>
             <Form.Select
-              aria-label="Operator 1"
+              aria-label="Operator"
               onChange={props.onchangehandler}
-              defaultValue={String(operator1)}
+              defaultValue={String(operator)}
             >
-              <option>----- none -----</option>
+              <option value="">----- none -----</option>
               <option value="AND">AND</option>
               <option value="OR">OR</option>
             </Form.Select>
@@ -59,35 +57,22 @@ const EditRuleModal = (props) => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="operator2">
-            <Form.Label>Operator 2</Form.Label>
-            <Form.Select
-              aria-label="Operator 2"
-              onChange={props.onchangehandler}
-              defaultValue={String(operator2)}
-            >
-              <option>----- none -----</option>
-              <option value="AND">AND</option>
-              <option value="OR">OR</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="fact3">
-            <Form.Label>Fact 3</Form.Label>
+          <hr className="my-2" />
+          <Form.Group className="mb-3" controlId="conclude1">
+            <Form.Label>Conclude1</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter fact3"
-              value={String(fact3)}
+              placeholder="Enter conclude1"
+              value={String(conclude1)}
               onChange={props.onchangehandler}
             />
           </Form.Group>
-          <hr className="my-2" />
-          <Form.Group className="mb-3" controlId="conclude">
-            <Form.Label>Conclude</Form.Label>
+          <Form.Group className="mb-3" controlId="conclude2">
+            <Form.Label>Conclude2</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter conclude"
-              value={String(conclude)}
+              placeholder="Enter conclude2"
+              value={String(conclude2)}
               onChange={props.onchangehandler}
             />
           </Form.Group>

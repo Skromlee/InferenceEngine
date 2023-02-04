@@ -12,9 +12,11 @@ class RuleSerializer(serializers.ModelSerializer):
     # create a meta class
     class Meta:
         model = Rule
-        fields = ("id", "fact1", "operator1", "fact2",
-                  "operator2", "fact3", "conclude")
+        fields = ("id", "fact1", "operator", "fact2",
+                  "conclude1", "conclude2")
 
 
 class FactSerializer(serializers.Serializer):
-    inputFact = serializers.CharField()
+    # inputFact = serializers.CharField()
+    inputFact = serializers.ListField()
+    prev_asked_premise = serializers.ListField()

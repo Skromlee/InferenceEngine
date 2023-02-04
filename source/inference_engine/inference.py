@@ -5,37 +5,48 @@ from .serializers import FactSerializer
 from .models import Rule
 from .Inference_engine import inference_engine
 
-key = ["fact1", "operator1", "fact2", "operator2", "fact3", "conclude"]
+key = ["fact1", "operator", "fact2", "conclude1", "conclude2"]
 
-factList = []
+NewRules = []
 
 res = ""
 
 
 def createRule():
-    global factList
+    global NewRules
 
-    factList = []
+    NewRules = []
 
     queryset = Rule.objects.all()
 
     rule = list(queryset)
     for rule in rule:
-        perRow = {}
-        txt = str(rule).split()
+        newRule = {}
+        WordList = str(rule).split()
         idx = 1
-        check = False
-        for element in txt:
-            if check:
-                perRow[key[5]] = element
-                break
-            if element != "THEN":
-                perRow[key[idx-1]] = element
+        conclude1Section = False
+        conclude2Section = False
+
+        for word in WordList:
+            if conclude1Section:
+                if conclude2Section:
+                    newRule[key[4]] = word
+                    break
+
+                if word == "AND":
+                    conclude2Section = True
+                    continue
+
+                newRule[key[3]] = word
+                continue
+
+            if word != "THEN":
+                newRule[key[idx-1]] = word
                 idx += 1
             else:
-                check = True
+                conclude1Section = True
                 continue
-        factList.append(perRow)
+        NewRules.append(newRule)
 
 
 @api_view(['POST'])
@@ -43,7 +54,10 @@ def members(request):
     serializer = FactSerializer(data=request.data)
     if serializer.is_valid():
         inputFact = serializer.validated_data.get('inputFact')
+        prev_asked_premise = serializer.validated_data.get(
+            'prev_asked_premise')
+        print(prev_asked_premise, "<===========")
         createRule()
-        matches = inference_engine(factList, inputFact)
-        return Response({"message": matches})
+        answer = inference_engine(NewRules, inputFact, prev_asked_premise)
+        return Response({"message": answer})
     return Response(serializer.errors, status=400)

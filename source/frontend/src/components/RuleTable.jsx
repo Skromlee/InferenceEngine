@@ -8,11 +8,10 @@ const RuleTable = ({ Rules, editHandler, deleteHandler }) => {
         <tr>
           <th>#</th>
           <th>Fact 1</th>
-          <th>Operation 1</th>
+          <th>Operator</th>
           <th>Fact 2</th>
-          <th>Operation 2</th>
-          <th>Fact 3</th>
-          <th>Conclude</th>
+          <th>Conclude 1</th>
+          <th>Conclude 2</th>
           <th>Function</th>
         </tr>
       </thead>

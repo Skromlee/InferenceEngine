@@ -1,3 +1,4 @@
+import "../css/home.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -10,22 +11,36 @@ const Home = () => {
   const [InputFact, setInputFact] = useState({
     inputFact: "",
   });
-  const [Response, setResponse] = useState({
-    message: [],
-  });
+  const [Response, setResponse] = useState([
+    {
+      message: [],
+    },
+  ]);
 
   const onInferenceHandler = (e) => {
     e.preventDefault();
+    setResponse([
+      {
+        message: [],
+      },
+    ]);
+    let InputFactArr = InputFact["inputFact"]
+      .split(",")
+      .map((each) => each.trim().toUpperCase());
     let CheckInputFact = {
-      inputFact: "nil",
+      inputFact: ["nil"],
+      prev_asked_premise: [],
     };
     if (InputFact["inputFact"] !== "") {
-      CheckInputFact["inputFact"] = InputFact["inputFact"];
+      CheckInputFact["inputFact"] = InputFactArr;
     }
     axios
       .post("http://localhost:8000/inference/", CheckInputFact)
       .then((response) => {
-        setResponse(response["data"]);
+        response["data"]["message"]["id"] = Math.random() * 10000;
+        response["data"]["message"]["disable"] = false;
+        console.log(response["data"]);
+        setResponse((prevState) => [...prevState, response["data"]]);
       })
       .catch((error) => console.log(error));
   };
@@ -33,9 +48,7 @@ const Home = () => {
   const onChangeHandler = (e) => {
     setInputFact((prevState) => (prevState = { inputFact: e.target.value }));
   };
-
   console.log(Response);
-
   return (
     <>
       <div className="container">
@@ -63,15 +76,22 @@ const Home = () => {
         </Form>
       </div>
 
-      {Object.keys(Response["message"]).length > 1 ? (
-        <div className="container">
-          {/* <h6>Prompt: </h6> */}
-          <WorkingMemory message={Response["message"]} />
+      {Object.keys(Response).length > 0 ? (
+        <div className="container bg-dark text-white py-5 px-5 rounded outputBox">
+          {/* <div>Hello</div> */}
+          {Response.map((each) => {
+            return (
+              <WorkingMemory
+                message={each["message"]}
+                setResponseHandler={setResponse}
+              />
+            );
+          })}
         </div>
       ) : (
         <div className="container">
           <div className="container bg-dark text-white py-5 px-5 rounded outputBox">
-            {"> " + Response["message"]}
+            <div className="mt-2">{"> " + Response["message"]}</div>
           </div>
         </div>
       )}
