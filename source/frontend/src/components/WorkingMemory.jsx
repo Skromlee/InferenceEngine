@@ -79,23 +79,25 @@ const WorkingMemory = ({ message, setResponseHandler }) => {
         </Form>
       ) : message["status"] === "successInference" &&
         message["concluding"].length > 0 ? (
-        <div>
-          {">"} Your conclude must be :{" "}
+        <div className="mb-3 queryString justify-content-center align-items-center">
+          <span>{">"} Your conclude must be : </span>
           {message["concluding"].map((each) => (
             <span className="text-info">{each} </span>
           ))}
         </div>
       ) : message["status"] === "successInference" &&
         message["concluding"].length === 0 ? (
-        <div>
-          {"> "}
+        <div className="mb-3 queryString justify-content-center align-items-center">
+          <span>{"> "}</span>
           <span className="text-danger">
             From our rules we cannot find a concluding node from fact that your
             have provided.
           </span>
         </div>
       ) : (
-        "> "
+        <div className="mb-3 queryString justify-content-center align-items-center">
+          {">"}
+        </div>
       )}
       {/* <div className="container bg-dark text-white py-5 px-5 rounded outputBox">
         <div>
