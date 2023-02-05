@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WorkingMemory from "../components/WorkingMemory";
 
 const Home = () => {
@@ -16,6 +16,9 @@ const Home = () => {
       message: [],
     },
   ]);
+  useEffect(() => {
+    document.title = "Inference Engine";
+  }, []);
 
   const onInferenceHandler = (e) => {
     e.preventDefault();

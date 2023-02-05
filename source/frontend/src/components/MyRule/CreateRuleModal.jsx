@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const CreateRuleModal = (props) => {
-  const { id, fact1, operator, fact2, conclude1, conclude2 } = props.editform;
+  const { operator } = props.editform;
   const { Facts } = props;
 
   const onCancelHandler = () => {
