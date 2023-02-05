@@ -1,5 +1,4 @@
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const RuleControlPanel = ({ rule, editHandler, deleteHandler }) => {
   return (

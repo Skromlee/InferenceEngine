@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const DeleteRuleModal = (props) => {
-  const { id, fact1, operator, fact2, conclude1, conclude2 } = props.editform;
+  const { fact1, operator, fact2, conclude1, conclude2 } = props.editform;
 
   let targetRule = "";
 
