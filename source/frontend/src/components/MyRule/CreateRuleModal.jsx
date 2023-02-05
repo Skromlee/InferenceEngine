@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 
 const CreateRuleModal = (props) => {
   const { id, fact1, operator, fact2, conclude1, conclude2 } = props.editform;
+  const { Facts } = props;
 
   const onCancelHandler = () => {
     props.onHide();
@@ -26,12 +27,27 @@ const CreateRuleModal = (props) => {
         <Modal.Body>
           <Form.Group className="mb-3" controlId="fact1">
             <Form.Label>Fact 1</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter fact1"
-              value={String(fact1)}
+            <Form.Select
+              aria-label="Fact 1"
               onChange={props.onchangehandler}
-            />
+              // defaultValue={String(operator)}
+            >
+              <option value="">----- no fact -----</option>
+              {Facts.map((fact) => {
+                return (
+                  <option key={fact.id + fact.factName} value={fact.id}>
+                    {fact.factName + " (" + fact.description + ")"}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="fact1_prefix"
+            onChange={props.onchangehandler}
+          >
+            <Form.Check type="checkbox" label="Invert fact1" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="operator">
@@ -49,32 +65,57 @@ const CreateRuleModal = (props) => {
 
           <Form.Group className="mb-3" controlId="fact2">
             <Form.Label>Fact 2</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter fact2"
-              value={String(fact2)}
-              onChange={props.onchangehandler}
-            />
+            <Form.Select aria-label="Fact 2" onChange={props.onchangehandler}>
+              <option value="">----- no fact -----</option>
+              {Facts.map((fact) => {
+                return (
+                  <option key={fact.id + fact.factName} value={fact.id}>
+                    {fact.factName + " (" + fact.description + ")"}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Form.Group>
+          <Form.Group
+            className="mb-3"
+            controlId="fact2_prefix"
+            onChange={props.onchangehandler}
+          >
+            <Form.Check type="checkbox" label="Invert fact2" />
           </Form.Group>
 
           <hr className="my-2" />
           <Form.Group className="mb-3" controlId="conclude1">
             <Form.Label>Conclude 1</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter conclude 1"
-              value={String(conclude1)}
+            <Form.Select
+              aria-label="Conclude 1"
               onChange={props.onchangehandler}
-            />
+            >
+              <option value="">----- no conclude1 -----</option>
+              {Facts.map((fact) => {
+                return (
+                  <option key={fact.id + fact.factName} value={fact.id}>
+                    {fact.factName + " (" + fact.description + ")"}
+                  </option>
+                );
+              })}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="conclude2">
             <Form.Label>Conclude 2</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter conclude 2"
-              value={String(conclude2)}
+            <Form.Select
+              aria-label="Conclude 2"
               onChange={props.onchangehandler}
-            />
+            >
+              <option value="">----- no conclude2 -----</option>
+              {Facts.map((fact) => {
+                return (
+                  <option key={fact.id + fact.factName} value={fact.id}>
+                    {fact.factName + " (" + fact.description + ")"}
+                  </option>
+                );
+              })}
+            </Form.Select>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

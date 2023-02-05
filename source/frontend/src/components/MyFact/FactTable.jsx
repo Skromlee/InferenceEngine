@@ -1,26 +1,23 @@
 import Table from "react-bootstrap/Table";
-import RuleRow from "./RuleRow";
+import FactRow from "./FactRow";
 
-const RuleTable = ({ Rules, editHandler, deleteHandler }) => {
+const FactTable = ({ Facts, editHandler, deleteHandler }) => {
   return (
     <Table striped bordered hover responsive>
       <thead>
         <tr>
           <th>#</th>
-          <th>Fact 1</th>
-          <th>Operator</th>
-          <th>Fact 2</th>
-          <th>Conclude 1</th>
-          <th>Conclude 2</th>
+          <th>Fact Name</th>
+          <th>Description</th>
           <th>Function</th>
         </tr>
       </thead>
       <tbody>
-        {Rules.map((rule) => {
+        {Facts.map((fact) => {
           return (
-            <tr key={rule.id}>
-              <RuleRow
-                rule={rule}
+            <tr key={fact.id}>
+              <FactRow
+                fact={fact}
                 editHandler={editHandler}
                 deleteHandler={deleteHandler}
               />
@@ -31,4 +28,4 @@ const RuleTable = ({ Rules, editHandler, deleteHandler }) => {
     </Table>
   );
 };
-export default RuleTable;
+export default FactTable;

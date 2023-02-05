@@ -51,7 +51,7 @@ const WorkingMemory = ({ message, setResponseHandler }) => {
             className="mb-3 queryString justify-content-center align-items-center"
             controlId="inputFact"
           >
-            <Form.Label column sm="2">
+            <Form.Label column sm="3">
               {">"} {message["queryString"]}
             </Form.Label>
             <Col className="ms-0 inputDialog">

@@ -6,6 +6,7 @@ import './App.css';
 // pages
 import Header from './components/Header';
 import MyRule from './pages/MyRule';
+import MyFact from './pages/MyFact';
 import Home from './pages/Home'
 import Member from './pages/Member';
 import Advisor from './pages/Advisor';
@@ -17,6 +18,7 @@ function App() {
       <Header />
       <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/facts' element={<MyFact />} />
           <Route path='/rules' element={<MyRule />} />
           <Route path='/team-members' element={<Member />}/>
           <Route path='/our-adviser' element={<Advisor />} />
