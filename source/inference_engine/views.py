@@ -4,10 +4,10 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 # import the RuleSerializer from the serializer file
-from .serializers import RuleSerializer
+from .serializers import RuleSerializer, FactSerializer
 
 # import the Rule model from the model file
-from .models import Rule
+from .models import Rule, Fact
 
 # create a class for the Rule model viewsets
 
@@ -21,3 +21,10 @@ class RuleView(viewsets.ModelViewSet):
     # define a varaible and populate it
     # with the Rule list Object
     queryset = Rule.objects.all()
+
+
+class FactView(viewsets.ModelViewSet):
+
+    serializer_class = FactSerializer
+
+    queryset = Fact.objects.all()

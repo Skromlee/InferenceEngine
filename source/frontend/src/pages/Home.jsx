@@ -34,12 +34,12 @@ const Home = () => {
     if (InputFact["inputFact"] !== "") {
       CheckInputFact["inputFact"] = InputFactArr;
     }
+    console.log(CheckInputFact);
     axios
       .post("http://localhost:8000/inference/", CheckInputFact)
       .then((response) => {
         response["data"]["message"]["id"] = Math.random() * 10000;
         response["data"]["message"]["disable"] = false;
-        console.log(response["data"]);
         setResponse((prevState) => [...prevState, response["data"]]);
       })
       .catch((error) => console.log(error));
@@ -48,7 +48,6 @@ const Home = () => {
   const onChangeHandler = (e) => {
     setInputFact((prevState) => (prevState = { inputFact: e.target.value }));
   };
-  console.log(Response);
   return (
     <>
       <div className="container">

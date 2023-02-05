@@ -2,27 +2,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import CreateRuleModal from "../components/CreateRuleModal";
-import DeleteRuleModal from "../components/DeleteRuleModal";
-import EditRuleModal from "../components/EditRuleModal";
+import CreateRuleModal from "../components/MyRule/CreateRuleModal";
+import DeleteRuleModal from "../components/MyRule/DeleteRuleModal";
+import EditRuleModal from "../components/MyRule/EditRuleModal";
 
 // import Rule from "../components/Rule";
-import RuleTable from "../components/RuleTable";
+import RuleTable from "../components/MyRule/RuleTable";
 
 // define a backend URI
 const URI = "http://localhost:8000/api/rules/";
+const FACT_URI = "http://localhost:8000/api/facts/";
 
 function MyRule() {
   const initialFormState = {
     id: "",
+    fact1_prefix: false,
     fact1: "",
     operator: "",
+    fact2_prefix: false,
     fact2: "",
     conclude1: "",
     conclude2: "",
   };
 
   const [Rules, setRules] = useState([]);
+  const [Facts, setFacts] = useState([]);
   const [EditModalShow, setEditModalShow] = useState(false);
   const [DeleteModalShow, setDeleteModalShow] = useState(false);
   const [CreateModalShow, setCreateModalShow] = useState(false);
@@ -30,10 +34,17 @@ function MyRule() {
   const [EditForm, setEditForm] = useState(initialFormState);
 
   const onChangeHandler = (e) => {
-    setEditForm((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value,
-    }));
+    if (e.target.type === "checkbox") {
+      setEditForm((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.checked,
+      }));
+    } else {
+      setEditForm((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.value,
+      }));
+    }
   };
 
   const findTargetRule = (id) => {
@@ -50,7 +61,26 @@ function MyRule() {
   };
 
   const onSave = () => {
-    const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
+    let {
+      fact1_prefix,
+      fact1,
+      operator,
+      fact2_prefix,
+      fact2,
+      conclude1,
+      conclude2,
+    } = EditForm;
+
+    if (fact1_prefix === true) {
+      EditForm["fact1_prefix"] = "NOT";
+    } else {
+      EditForm["fact1_prefix"] = null;
+    }
+    if (fact2_prefix === true) {
+      EditForm["fact2_prefix"] = "NOT";
+    } else {
+      EditForm["fact2_prefix"] = null;
+    }
 
     let validation = false;
 
@@ -65,14 +95,25 @@ function MyRule() {
     }
 
     if (validation) {
+      console.log(EditForm, "<======");
+      const {
+        fact1_prefix,
+        fact1,
+        operator,
+        fact2_prefix,
+        fact2,
+        conclude1,
+        conclude2,
+      } = EditForm;
       const upperEditForm = {
-        fact1: fact1.toUpperCase(),
-        operator: operator.toUpperCase(),
-        fact2: fact2.toUpperCase(),
-        conclude1: conclude1.toUpperCase(),
-        conclude2: conclude2.toUpperCase(),
+        fact1_prefix: fact1_prefix,
+        fact1: fact1,
+        operator: operator,
+        fact2_prefix: fact2_prefix,
+        fact2: fact2,
+        conclude1: conclude1,
+        conclude2: conclude2,
       };
-
       axios
         .put(URI + EditForm.id + "/", upperEditForm)
         .then(() => getRules())
@@ -87,7 +128,27 @@ function MyRule() {
   };
 
   const onCreate = () => {
-    const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
+    let {
+      fact1_prefix,
+      fact1,
+      operator,
+      fact2_prefix,
+      fact2,
+      conclude1,
+      conclude2,
+    } = EditForm;
+
+    if (fact1_prefix === true) {
+      EditForm["fact1_prefix"] = "NOT";
+    } else {
+      EditForm["fact1_prefix"] = null;
+    }
+    if (fact2_prefix === true) {
+      EditForm["fact2_prefix"] = "NOT";
+    } else {
+      EditForm["fact2_prefix"] = null;
+    }
+
     let validation = false;
 
     if (fact1 && operator && fact2 && conclude1) {
@@ -101,19 +162,29 @@ function MyRule() {
     }
 
     if (validation) {
-      const { fact1, operator, fact2, conclude1, conclude2 } = EditForm;
+      const {
+        fact1_prefix,
+        fact1,
+        operator,
+        fact2_prefix,
+        fact2,
+        conclude1,
+        conclude2,
+      } = EditForm;
       const upperEditForm = {
+        fact1_prefix: fact1_prefix,
         fact1: fact1.toUpperCase(),
         operator: operator.toUpperCase(),
+        fact2_prefix: fact2_prefix,
         fact2: fact2.toUpperCase(),
         conclude1: conclude1.toUpperCase(),
         conclude2: conclude2.toUpperCase(),
       };
       axios
         .post(URI, upperEditForm)
-        .then((response) =>
-          setRules((prevState) => [...prevState, response["data"]])
-        )
+        .then((response) => {
+          setRules((prevState) => [...prevState, response["data"]]);
+        })
         .catch((error) => console.log(error));
     }
     setCreateModalShow(false);
@@ -141,7 +212,17 @@ function MyRule() {
     axios
       .get(URI)
       .then((response) => {
+        console.log(response["data"], "<=====");
         setRules(response["data"]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(FACT_URI)
+      .then((response) => {
+        console.log(response["data"]);
+        setFacts(response["data"]);
       })
       .catch((error) => {
         console.log(error);
@@ -155,6 +236,7 @@ function MyRule() {
   return (
     <>
       <EditRuleModal
+        Facts={Facts}
         show={EditModalShow}
         onHide={() => setEditModalShow(false)}
         modaltitle={ModalTitle}
@@ -163,6 +245,7 @@ function MyRule() {
         onSave={onSave}
       />
       <CreateRuleModal
+        Facts={Facts}
         show={CreateModalShow}
         onHide={() => setCreateModalShow(false)}
         editform={EditForm}
@@ -190,6 +273,7 @@ function MyRule() {
         <div className="row">
           {Rules.length > 0 ? (
             <RuleTable
+              Facts={Facts}
               Rules={Rules}
               editHandler={editHandler}
               deleteHandler={deleteHandler}
