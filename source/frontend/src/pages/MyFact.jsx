@@ -13,6 +13,9 @@ import FactTable from "../components/MyFact/FactTable";
 const URI = "http://localhost:8000/api/facts/";
 
 function MyFact() {
+  useEffect(() => {
+    document.title = "Facts | Inference Engine";
+  }, []);
   const initialFormState = {
     id: "",
     factName: "",

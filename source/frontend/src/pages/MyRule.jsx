@@ -61,15 +61,8 @@ function MyRule() {
   };
 
   const onSave = () => {
-    let {
-      fact1_prefix,
-      fact1,
-      operator,
-      fact2_prefix,
-      fact2,
-      conclude1,
-      conclude2,
-    } = EditForm;
+    let { fact1_prefix, fact1, operator, fact2_prefix, fact2, conclude1 } =
+      EditForm;
 
     if (fact1_prefix === true) {
       EditForm["fact1_prefix"] = "NOT";
@@ -128,15 +121,8 @@ function MyRule() {
   };
 
   const onCreate = () => {
-    let {
-      fact1_prefix,
-      fact1,
-      operator,
-      fact2_prefix,
-      fact2,
-      conclude1,
-      conclude2,
-    } = EditForm;
+    let { fact1_prefix, fact1, operator, fact2_prefix, fact2, conclude1 } =
+      EditForm;
 
     if (fact1_prefix === true) {
       EditForm["fact1_prefix"] = "NOT";
@@ -231,6 +217,7 @@ function MyRule() {
 
   useEffect(() => {
     getRules();
+    document.title = "Rules | Inference Engine";
   }, []);
 
   return (

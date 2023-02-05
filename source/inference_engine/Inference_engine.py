@@ -69,10 +69,6 @@ def get_premise_prefix(premise, rule):
         return rule['fact2_prefix']
 
 
-def premiseMatchedBB(premise, BB):
-    print(premise, BB)
-
-
 def inference_engine(Rules, ProblemFact, prev_asked_premise):
     # Start
     # Have Problem Fact?
@@ -169,36 +165,6 @@ def inference_engine(Rules, ProblemFact, prev_asked_premise):
                         else:
                             continue
 
-                # if premise in BB:
-                #     if premise == premises[-1] and premises[0] not in BB:
-                #         continue
-                #     if 'operator' in rule and rule['operator'] == "AND" and premise != premises[-1]:
-                #         continue
-                #     else:
-                #         remained_rules.remove(rule)
-                #         if 'conclude1' in rule and rule['conclude1'] not in BB:
-                #             BB.append(rule['conclude1'])
-                #         if 'conclude2' in rule and rule['conclude2'] not in BB:
-                #             BB.append(rule['conclude2'])
-                #         getFirstRule = True
-                #         break
-
-                # else:
-                #     if premise in starting_node and premise not in asked_premise:
-                #         if premise not in asked_premise:
-                #             asked_premise.append(premise)
-                #         queryString = "Is {} ({}) True / False ? : "
-
-                #         return {
-                #             "status": 'queryFromUser',
-                #             "queryString": queryString.format(premise, description),
-                #             "BB": BB,
-                #             "premise": premise,
-                #             "asked_premises": asked_premise
-                #         }
-
-                #     else:
-                #         continue
         if not getFirstRule:
             break
     answers = list(set(concluding_node).intersection(set(BB)))

@@ -19,7 +19,6 @@ def createRule():
     NewRules = []
 
     queryset = Rule.objects.all()
-    print(queryset)
     rules = list(queryset)
     for rule in rules:
         newRule = {}
@@ -66,7 +65,6 @@ def members(request):
         prev_asked_premise = serializer.validated_data.get(
             'prev_asked_premise')
         createRule()
-        print(NewRules)
         answer = inference_engine(NewRules, inputFact, prev_asked_premise)
         return Response({"message": answer})
     return Response(serializer.errors, status=400)

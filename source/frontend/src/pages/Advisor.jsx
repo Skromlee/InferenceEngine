@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import "../css/advisor.css";
 
 const Advisor = () => {
+  useEffect(() => {
+    document.title = "Our Advisor";
+  }, []);
+
   return (
     <div className="container mt-5">
       <div>

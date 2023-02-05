@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const EditFactModal = (props) => {
-  const { id, factName, description } = props.editform;
+  const { factName, description } = props.editform;
 
   const onCancelHandler = () => {
     props.onHide();

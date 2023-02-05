@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import "../css/member.css";
 
 const Member = () => {
+  useEffect(() => {
+    document.title = "Team members";
+  }, []);
   return (
     <div className="container">
       <div className="my-4">

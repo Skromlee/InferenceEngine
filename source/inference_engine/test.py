@@ -47,10 +47,6 @@ def get_premise(rule):
     return premises
 
 
-def premiseMatchedBB(premise, BB):
-    print(premise, BB)
-
-
 def inference_engine(Rules, ProblemFact):
     # Start
 
@@ -64,11 +60,9 @@ def inference_engine(Rules, ProblemFact):
     starting_node, concluding_node = check_starting_node_and_concluding_node(
         Rules=KB)
 
-    fired_rules = []
     remained_rules = list(KB)
     getFirstRule = False
     asked_premise = []
-    print(BB)
     while True:
         getFirstRule = False
         for rule in remained_rules:
@@ -123,4 +117,3 @@ data = [{'fact1': 'Q', 'conclude1': 'X'}, {'fact1': 'M', 'conclude1': 'Y'}, {'fa
 inputFact = input("Enter starting fact: ")
 
 answer = inference_engine(data, inputFact)
-print(answer)

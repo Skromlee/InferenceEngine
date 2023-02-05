@@ -5,11 +5,9 @@ import Form from "react-bootstrap/Form";
 
 const EditRuleModal = (props) => {
   console.log(props.editform);
-  const key = ["fact1", "fact2", "conclude1", "conclude2"];
   const { Facts } = props;
 
   let {
-    id,
     fact1_prefix,
     fact1,
     operator,

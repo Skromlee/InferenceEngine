@@ -27,7 +27,7 @@ const RuleRow = ({ Facts, rule, editHandler, deleteHandler }) => {
   };
 
   const represent = (facts, fact, key, prefix) => {
-    facts.map((eachfact) => {
+    facts.forEach((eachfact) => {
       if (prefix === null) {
         if (eachfact.id === fact) {
           rule_represented[key] =
