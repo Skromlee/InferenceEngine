@@ -119,7 +119,7 @@ def inference_engine(Rules, ProblemFact, prev_asked_premise):
                         if premise in starting_node and premise not in asked_premise:
                             if premise not in asked_premise:
                                 asked_premise.append(premise)
-                            queryString = "Is {} ({}) True / False ? : "
+                            queryString = "Is fact [ {} ({}) ] (True / False) ? : "
 
                             return {
                                 "status": 'queryFromUser',
@@ -153,7 +153,7 @@ def inference_engine(Rules, ProblemFact, prev_asked_premise):
                         if premise in starting_node and premise not in asked_premise:
                             if premise not in asked_premise:
                                 asked_premise.append(premise)
-                            queryString = "Is {} ({}) True / False ? : "
+                            queryString = "Is fact [ {} ({}) ] (True / False) ? : "
 
                             return {
                                 "status": 'queryFromUser',

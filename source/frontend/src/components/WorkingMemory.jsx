@@ -1,3 +1,4 @@
+import "../css/WorkingMemory.css";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
@@ -51,7 +52,7 @@ const WorkingMemory = ({ message, setResponseHandler }) => {
             className="mb-3 queryString justify-content-center align-items-center"
             controlId="inputFact"
           >
-            <Form.Label column sm="3">
+            <Form.Label column lg="3">
               {">"} {message["queryString"]}
             </Form.Label>
             <Col className="ms-0 inputDialog">
